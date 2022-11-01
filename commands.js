@@ -23,13 +23,13 @@ async function HasGuildCommand(appId, guildId, command) {
     if (data) {
       //get all names of commands
       const installedNames = data.map((c) => c['name']);
-      console.log({installedNames})
 
       // This is just matching on the name, so it's not good for updates
       if (!installedNames.includes(command['name'])) {
         console.log(`Installing "${command['name']}"`);
         InstallGuildCommand(appId, guildId, command);
       } else {
+        // RemoveGuildCommand(appId, guildId, command);
         console.log(`"${command['name']}" command already installed`);
       }
     }
@@ -50,6 +50,16 @@ export async function InstallGuildCommand(appId, guildId, command) {
   }
 }
 
+export async function RemoveGuildCommand(appId, guildId, command) {
+  const endpoint = `applications/${appId}/guilds/${guildId}/commands`;
+  // install command
+  try {
+    await DiscordRequest(endpoint, { method: 'PUT', body: {} });
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 // Get the game choices from game.js
 function createCommandChoices() {
   const choices = getRPSChoices();
@@ -65,25 +75,52 @@ function createCommandChoices() {
   return commandChoices;
 }
 
-// Simple test command
-export const TEST_COMMAND = {
-  name: 'test',
-  description: 'Basic guild command',
+// chat message commands
+export const LIFETIME_STATS_COMMAND = {
+  name: 'lifetime-stats',
+  description: 'Get an overview of your lifetime stats in warzone.',
+  type: 1,
+  options: [
+    {
+        "name": "gamertag",
+        "description": "input your gamertag",
+        "type": 3,
+        "required": true,
+    },
+  ] 
+};
+
+export const RECENT_STATS_COMMAND = {
+  name: 'recent-stats',
+  description: 'Get your recent stats across all your matches in warzone.',
   type: 1,
 };
 
-// Command containing options
-export const CHALLENGE_COMMAND = {
-  name: 'challenge',
-  description: 'Challenge to a match of rock paper scissors',
-  options: [
-    {
-      type: 3,
-      name: 'object',
-      description: 'Pick your object',
-      required: true,
-      choices: createCommandChoices(),
-    },
-  ],
+export const QUAD_STATS_COMMAND = {
+  name: 'quad-stats',
+  description: 'Get your recent stats for quad matches in warzone.',
   type: 1,
 };
+
+export const RECENT_MATCH_STATS_COMMAND = {
+  name: 'recent-match-stats',
+  description: 'Get your stats for most recent match in warzone.',
+  type: 1,
+};
+
+
+// Command containing options
+// export const CHALLENGE_COMMAND = {
+//   name: 'challenge',
+//   description: 'Challenge to a match of rock paper scissors',
+//   options: [
+//     {
+//       type: 3,
+//       name: 'object',
+//       description: 'Pick your object',
+//       required: true,
+//       choices: createCommandChoices(),
+//     },
+//   ],
+//   type: 1,
+// };
