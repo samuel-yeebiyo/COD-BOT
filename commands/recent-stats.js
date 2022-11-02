@@ -1,5 +1,6 @@
 import  { SlashCommandBuilder } from 'discord.js'
 import { getRecentStats } from '../cod/index.js'
+import { responses } from '../responses/index.js';
 
 export const command =  {
 	data: new SlashCommandBuilder()
@@ -34,8 +35,8 @@ export const command =  {
                 :unlock: **Gulag Kills**: ${gulagKills}\n\
                 :crossed_swords: **Kills Per Game**: ${killsPerGame}\n\
                 :anger: **Damage Done**: ${damageDone}\n\
-                :coffin: **Deaths**: ${deaths}
-                `
+                :coffin: **Deaths**: ${deaths}\n\ 
+                ${responses[Math.floor(Math.random() * responses.length)]}`
             )
         }
 	},

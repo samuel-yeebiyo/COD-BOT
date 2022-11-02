@@ -1,5 +1,6 @@
 import  { SlashCommandBuilder } from 'discord.js'
 import { getRecentQuadStats } from '../cod/index.js'
+import { responses } from '../responses/index.js';
 
 export const command =  {
 	data: new SlashCommandBuilder()
@@ -25,17 +26,17 @@ export const command =  {
         }else {
 
             await interaction.editReply(
-                `**Most Recent Overall stats for ${gamertag}**\n 
-                :headstone: **Kills**: ${kills}\n 
-                :skull_crossbones: **KdRatio**: ${kdRatio}\n 
-                :x: **Gulag Deaths**: ${gulagDeaths}\n 
-                :globe_with_meridians: **Matches Played**: ${matchesPlayed}\n 
-                :beginner: **Assists**: ${assists}\n 
-                :unlock: **Gulag Kills**: ${gulagKills}\n 
-                :crossed_swords: **Kills Per Game**: ${killsPerGame}\n 
-                :anger: **Damage Done**: ${damageDone}\n 
-                :coffin: **Deaths**: ${deaths}
-                `
+                `**Most Recent Overall stats for ${gamertag}**\n\
+                :headstone: **Kills**: ${kills}\n\
+                :skull_crossbones: **KdRatio**: ${kdRatio}\n\
+                :x: **Gulag Deaths**: ${gulagDeaths}\n\
+                :globe_with_meridians: **Matches Played**: ${matchesPlayed}\n\
+                :beginner: **Assists**: ${assists}\n\
+                :unlock: **Gulag Kills**: ${gulagKills}\n\
+                :crossed_swords: **Kills Per Game**: ${killsPerGame}\n\
+                :anger: **Damage Done**: ${damageDone}\n\
+                :coffin: **Deaths**: ${deaths}\n\ 
+                ${responses[Math.floor(Math.random() * responses.length)]}`
             )
         }
 	},

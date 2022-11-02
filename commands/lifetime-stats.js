@@ -1,5 +1,6 @@
 import  { SlashCommandBuilder } from 'discord.js'
 import {getLifetimeStats} from '../cod/index.js'
+import { responses } from '../responses/index.js';
 
 export const command =  {
 	data: new SlashCommandBuilder()
@@ -24,15 +25,17 @@ export const command =  {
             )
         }else {
             await interaction.editReply(
-                `**Lifetime stats for ${gamertag}**\n 
-                :globe_with_meridians: **Total Games Played**: ${totalGamesPlayed}\n 
-                :100: **Score**: ${score}\n 
-                :coffin: **Suicides**: ${suicides}\n 
-                :headstone: **Kills**: ${kills}\n 
-                :skull: **Headshots**: ${headshots}\n 
-                :beginner: **Assists**: ${assists}\n 
-                :medal: **Level**: ${level}\n 
-                :gem: **Total Xp**: ${totalXp}`
+                `**Lifetime stats for ${gamertag}**\n\
+                :globe_with_meridians: **Total Games Played**: ${totalGamesPlayed}\n\
+                :100: **Score**: ${score}\n\
+                :coffin: **Suicides**: ${suicides}\n\
+                :headstone: **Kills**: ${kills}\n\
+                :skull: **Headshots**: ${headshots}\n\
+                :beginner: **Assists**: ${assists}\n\
+                :medal: **Level**: ${level}\n\
+                :gem: **Total Xp**: ${totalXp}\n\ 
+                ${responses[Math.floor(Math.random() * responses.length)]}
+                `
             )
         }
 	},

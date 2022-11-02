@@ -1,5 +1,6 @@
 import  { SlashCommandBuilder } from 'discord.js'
 import {getMostRecentMatchData} from '../cod/index.js'
+import { responses } from '../responses/index.js';
 
 export const command =  {
 	data: new SlashCommandBuilder()
@@ -24,13 +25,14 @@ export const command =  {
             )
         }else {
             await interaction.editReply(
-                `**Most Recent Match stats for ${gamertag}**\n 
-                :trophy: **Team Placement**: ${teamPlacement}\n 
-                :anger: **Damage Done**: ${damageDone}\n 
-                :skull_crossbones: **KdRatio**: ${kdRatio}\n 
-                :headstone: **Kills**: ${kills}\n 
-                :skull: **Headshots**: ${headshots}\n 
-                :beginner: **Assists**: ${assists}`
+                `**Most Recent Match stats for ${gamertag}**\n\
+                :trophy: **Team Placement**: ${teamPlacement}\n\
+                :anger: **Damage Done**: ${damageDone}\n\
+                :skull_crossbones: **KdRatio**: ${kdRatio}\n\
+                :headstone: **Kills**: ${kills}\n\
+                :skull: **Headshots**: ${headshots}\n\
+                :beginner: **Assists**: ${assists}\n\ 
+                ${responses[Math.floor(Math.random() * responses.length)]}`
             )
         }
 	},
