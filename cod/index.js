@@ -7,45 +7,61 @@ export const authInit = ()=>{
     if(success) console.log("Logged in to COD server")
 }
 
+export const getRecentQuadStats = async (gamertag) => {
+
+    try {
+        let response = await Warzone.combatHistory(gamertag, platforms.Activision)
+        const quadRecentData = response.data?.summary?.br_rebirth_rbrthquad
+        const {kills, kdRatio, gulagDeaths, matchesPlayed, assists, gulagKills, killsPerGame, damageDone, deaths} = quadRecentData
+        
+        const quadData = {
+            kills:kills,
+            kdRatio:kdRatio,
+            gulagDeaths:gulagDeaths,
+            matchesPlayed:matchesPlayed,
+            assists:assists,
+            gulagKills:gulagKills,
+            killsPerGame:killsPerGame,
+            damageDone:damageDone,
+            deaths:deaths,
+        }
+
+        return quadData
+
+    } catch(error) {
+        //Handle Exception
+        console.log("Error occurred while getting recent quad data")
+        console.log(error)
+        return false
+    }
+}
+
 export const getRecentStats = async (gamertag) => {
 
     try {
         let response = await Warzone.combatHistory(gamertag, platforms.Activision)
         const allRecentData = response.data?.summary?.all
-        const quadRecentData = response.data?.summary?.br_rebirth_rbrthquad
-        
+        const {kills, kdRatio, gulagDeaths, matchesPlayed, assists, gulagKills, killsPerGame, damageDone, deaths} = allRecentData
+
         const allData = {
-            kills:allRecentData.kills,
-            kdRatio:allRecentData.kdRatio,
-            gulagDeaths:allRecentData.gulagDeaths,
-            matchesPlayed:allRecentData.matchesPlayed,
-            assists:allRecentData.assists,
-            gulagKills:allRecentData.gulagKills,
-            killsPerGame:allRecentData.killsPerGame,
-            damageDone:allRecentData.damageDone,
-            deaths:allRecentData.deaths,
+            kills:kills,
+            kdRatio:kdRatio,
+            gulagDeaths:gulagDeaths,
+            matchesPlayed:matchesPlayed,
+            assists:assists,
+            gulagKills:gulagKills,
+            killsPerGame:killsPerGame,
+            damageDone:damageDone,
+            deaths:deaths,
         }
 
-        const quadData = {
-            kills:quadRecentData.kills,
-            kdRatio:quadRecentData.kdRatio,
-            gulagDeaths:quadRecentData.gulagDeaths,
-            matchesPlayed:quadRecentData.matchesPlayed,
-            assists:quadRecentData.assists,
-            gulagKills:quadRecentData.gulagKills,
-            killsPerGame:quadRecentData.killsPerGame,
-            damageDone:quadRecentData.damageDone,
-            deaths:quadRecentData.deaths,
-        }
+        return allData
 
-        return{
-            allData,
-            quadData
-        }        
     } catch(error) {
         //Handle Exception
         console.log("Error occurred while getting recent data")
         console.log(error)
+        return false
     }
 
 }
@@ -80,6 +96,7 @@ export const getLifetimeStats = async (gamertag) => {
         //Handle Exception
         console.log("Error occurred while getting lifetime data")
         console.log(error)
+        return false
     }
 }
 
@@ -103,5 +120,6 @@ export const getMostRecentMatchData = async (gamertag) => {
         //Handle Exception
         console.log("Error occurred while getting recent match data")
         console.log(error)
+        return false
     }
 }
